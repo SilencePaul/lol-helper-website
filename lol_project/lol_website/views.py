@@ -236,16 +236,19 @@ def updates(request):
         if item_data == "true":
             call_command("item_data_update")
             messages.append("Item Data Updated")
-        response = requests.get(f'https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key={api_key}')
-        response_json = response.json()
-        if response_json["status"]["status_code"] == 403:
-            message = "API Key is invalid"
-            context["error_message"] = message
+        if api_key == "":
             return render(request, 'updates.html', context)
-        else:
+        response = requests.get(f'https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key={api_key}')
+        status_code = response.status_code
+        print(status_code)
+        if  status_code == 200:
             APIKey.objects.all().delete()
             new_api_key = APIKey(api_key=api_key)
             new_api_key.save()
-            messages.append("API Key Updated")
+            messages.append("API Key Updated")    
+        else:
+            message = "API Key is invalid"
+            context["error_message"] = message
+            return render(request, 'updates.html', context)
         context["messages"] = messages
     return render(request, 'updates.html', context)
