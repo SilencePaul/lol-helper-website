@@ -201,10 +201,33 @@ def items(request):
 
 def item_detail(request, item_id):
     context = {}
+    context["tags"] = []
+    context["maps"] = []
     item = Item.objects.get(item_id=item_id)
     version = Version.objects.all().order_by("id").last().version
     images_url = "https://ddragon.leagueoflegends.com/cdn/" + version + "/img/item/"
     image = images_url + item.image
+    for tag in json.loads(item.tags):
+        context["tags"].append(tag)
+    maps = item.maps
+    for map in maps:
+        if maps[map] == True:
+            map_name = Map.objects.get(map_id=map)
+            context["maps"].append(map_name)
+    if item.from_item != None:
+        from_item = []
+        for item_id in json.loads(item.from_item):
+            item_name = Item.objects.get(item_id=item_id)
+            item_image = images_url + item_name.image
+            from_item.append([item_name, item_image, item_id])
+        context["from_item"] = from_item
+    if item.into_item != None:
+        into_item = []
+        for item_id in json.loads(item.into_item):
+            item_name = Item.objects.get(item_id=item_id)
+            item_image = images_url + item_name.image
+            into_item.append([item_name, item_image, item_id])
+        context["into_item"] = into_item
     context["image"] = image
     context["item"] = item
     return render(request, 'item_detail.html', context)

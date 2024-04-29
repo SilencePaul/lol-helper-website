@@ -3,7 +3,68 @@
 {% load filters %}
 
 {% block content %}
-<img src={{ image }}>
-{{ item }}
+<section class="section">
+    <div class="item-info container">
+        <div class="columns">
+            <div class="column is-narrow is-offset-one-quarter">
+                <img src="{{ image }}" alt="{{ item.name }}" />
+            </div>
+            <div class="column">
+                <div class="content">
+                    <h3 class="title is-4">{{ item.name }}</h3>
+                    <p>{{ item.description|safe }}</p>
+                    <p><strong>Cost:</strong> <i class="fa-solid fa-coins"></i> <goldgain>{{ item.gold.total }} gold</goldgain> </p>
+                    <p><strong>Tags:</strong> 
+                        {% for tag in tags %}
+                            <span class="tag is-primary">{{ tag }}</span>
+                        {% endfor %}
+                    </p>
+                    <p><strong>Maps:</strong> 
+                        {% for map in maps %}
+                            <span class="tag is-info">{{ map }}</span>
+                        {% endfor %}
+                    </p>
+                    {% if item.plaintext %}
+                        <p><strong>Notes:</strong> {{ item.plaintext }}</p>
+                    {% endif %}
+                    {% if from_item %}
+                        <p><strong>Built From</strong></p>
+                        <div class="columns is-multiline">
+                            {% for item in from_item %}
+                            <div class="column is-narrow">
+                                <a href="{% url 'item_detail' item.2 %}">
+                                    <div class="box">
+                                        <img src="{{ item.1 }}" alt="{{ item.0 }}" title="{{ item.0 }}">
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if item.into_item %}
+                        <p><strong>Build Into</strong></p>
+                        <div class="columns is-multiline">
+                            {% for item in into_item %}
+                            <div class="column is-narrow">
+                                <a href="{% url 'item_detail' item.2 %}">
+                                    <div class="box">
+                                        <img src="{{ item.1 }}" alt="{{ item.0 }}" title="{{ item.0 }}">
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if item.required_Ally %}
+                        <p><strong>Required Ally:</strong> {{ item.required_Ally }}</p>
+                    {% endif %}
+                    {% if item.required_Champion %}
+                        <p><strong>Required Champion:</strong> {{ item.required_Champion }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
