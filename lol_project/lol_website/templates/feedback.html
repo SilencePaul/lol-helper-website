@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% load filters %}
+{% load static %}
+{% block content %}
+
+{% if messages %}
+<div class="container">
+    {% for message in messages %}
+    <div class="notification is-{{ message.tags }}">
+        <button class="delete"></button>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<section class="section">
+    <div class="container">
+        <button class="button is-info" id="form-button">New Feedback</button>
+        <div class="columns is-centered is-hidden" id="feedback-form">
+            <div class="column is-half">
+                <form action="{% url 'feedback' %}" method="POST" class="box">
+                    {% csrf_token %}
+                    <h1 class="title">Feedback</h1>
+                    <div class="field">
+                        <label class="label" for="name">Name</label>
+                        <div class="control">
+                            <input class="input" type="text" id="name" name="name" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="email">Email</label>
+                        <div class="control">
+                            <input class="input" type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="feedback">Feedback</label>
+                        <div class="control">
+                            <textarea class="textarea" id="feedback" name="feedback" rows="4" required></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">Submit Feedback</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <h2 class="title">Recent Feedbacks</h2>
+        <div class="columns is-multiline">
+            {% for feedback in feedbacks %}
+            <div class="column is-4">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4">{{ feedback.name }}</p>
+                                <p class="content">{{ feedback.feedback }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'js/feedback.js' %}"></script>
+
+{% endblock %}

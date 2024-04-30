@@ -11,4 +11,5 @@ urlpatterns = [
     path('lp/', views.lp, name='lp'),
     path('updates/', views.updates, name='api_key'),
     path('spells/', views.spells, name='spells'),
+    path('feedback/', views.feedback, name='feedback'),
 ]

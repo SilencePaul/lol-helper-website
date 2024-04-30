@@ -1,8 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
-from django.core.serializers import serialize
 from django.core.management import call_command
+from django.contrib import messages
 
 import json
 
@@ -294,3 +293,17 @@ def updates(request):
             return render(request, 'updates.html', context)
         context["messages"] = messages
     return render(request, 'updates.html', context)
+
+
+def feedback(request):
+    context = {}
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        feedback = request.POST.get("feedback")
+        new_feedback = Feedback(name=name, email=email, feedback=feedback)
+        new_feedback.save()
+        messages.success(request, "Feedback submitted successfully")
+    feedbacks = Feedback.objects.all().order_by("-created_on")
+    context["feedbacks"] = feedbacks
+    return render(request, 'feedback.html', context)
