@@ -104,6 +104,7 @@ class Feedback(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField()
     feedback = models.TextField()
+    solved = models.BooleanField(default=False)
     created_on = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return f"Feedback from {self.name}"

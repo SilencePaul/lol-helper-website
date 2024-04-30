@@ -50,6 +50,19 @@
         </div>
         <h2 class="title">Recent Feedbacks</h2>
         <div class="columns is-multiline">
+            {% if feedbacks|length == 0 %}
+            <div class="column is-4">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4">No feedbacks yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
             {% for feedback in feedbacks %}
             <div class="column is-4">
                 <div class="card">
@@ -58,6 +71,11 @@
                             <div class="media-content">
                                 <p class="title is-4">{{ feedback.name }}</p>
                                 <p class="content">{{ feedback.feedback }}</p>
+                                {% if feedback.solved == True %}
+                                <p class="tag is-success">Solved</p>
+                                {% else %}
+                                <p class="tag is-warning">Pending</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
