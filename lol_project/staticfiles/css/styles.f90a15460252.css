@@ -1,0 +1,89 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto; /* The .content class is used here as an example; apply this style to the main content area of your site */
+}
+.footer {
+    flex-shrink: 0;
+}
+
+attention {
+    color: black;
+    font-weight: bold;
+}
+
+passive {
+    font-style: italic;
+    color: gold;
+    font-weight: bold;
+}
+
+ornnbonus {
+    color: rgba(255, 0, 0, 0.719);
+    font-weight: bold;
+}
+
+healing, scalehealth {
+    color: green;
+    font-weight: bold;
+}
+
+active {
+    color: red;
+    font-weight: bold;
+}
+
+speed {
+    color: rgba(0, 81, 255, 0.822);
+    font-weight: bold;
+}
+
+rules {
+    color: black;
+    font-weight: bold;
+}
+
+goldgain {
+    color: gold;
+    font-weight: bold;
+}
+
+keywordstealth, keyword {
+    color: black;
+    font-weight: bold;
+}
+
+magicdamage {
+    color: purple;
+    font-weight: bold;
+}
+
+scalemr {
+    color: rgba(0, 132, 255, 0.966);
+    font-weight: bold;
+}
+
+scalearmor {
+    color: rgba(255, 196, 0, 0.89);
+    font-weight: bold;
+}
+
+.image-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.content-adjust {
+    height: 250px;
+    overflow: auto;
+}
