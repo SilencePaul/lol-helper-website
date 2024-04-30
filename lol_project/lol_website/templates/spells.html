@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load filters %}
+
+{% block content %}
+
+<div class="container is-fluid">
+    <div class="columns is-multiline">
+    {% for spell in spells %}
+    <div class="column is-2">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image image-center is-64x64">
+                    <img src="{{ images|get_item:spell.name }}" alt="{{ spell.name }}">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content content-adjust">
+                        <p class="title is-4">{{ spell.name }}</p>
+                        <p class="subtitle is-6">{{ spell.description }}</p>
+                        <p class="subtitle is-6"><strong>Cooldown</strong>: {{ spell.cooldown }}</p>
+                        <p class="subtitle is-6"><strong>Range</strong>: {{ spell.range }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

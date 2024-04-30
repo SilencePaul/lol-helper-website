@@ -90,3 +90,12 @@ class APIKey(models.Model):
     api_key = models.CharField(max_length=200)
     def __str__(self):
         return self.api_key
+
+class Spell(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(null=True)
+    image = models.CharField(max_length=200)
+    cooldown = models.CharField(max_length=200)
+    range = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name

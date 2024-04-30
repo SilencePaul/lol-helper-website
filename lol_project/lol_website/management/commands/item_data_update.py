@@ -8,7 +8,16 @@ class Command(BaseCommand):
     help = 'Populates the database with item data from the Riot API'
 
     def handle(self, *args, **options):
-        version = Version.objects.all().order_by("id").last().version
+        version_response = requests.get('https://ddragon.leagueoflegends.com/api/versions.json')
+        version_data = version_response.json()
+        version = version_data[0]
+        # Update version
+        version_object = Version.objects.filter(version=version).first()
+        if version_object:
+            pass
+        else:
+            version_object = Version(version=version)
+            version_object.save()
         # Get item data from Riot API
         
         item_response = requests.get(f'http://ddragon.leagueoflegends.com/cdn/{version}/data/en_US/item.json')

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Champion, ChampionDetail, LPHistory, Version, Item, Queue, Map, GameMode
+from .models import *
 
 
 class ChampionAdmin(admin.ModelAdmin):
@@ -29,3 +29,4 @@ admin.site.register(Item, ItemAdmin)
 admin.site.register(Queue)
 admin.site.register(Map)
 admin.site.register(GameMode)
+admin.site.register(Spell)

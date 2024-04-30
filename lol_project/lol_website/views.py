@@ -22,6 +22,7 @@ def index(request):
     context["champions"] = champions
     return render(request, 'index.html', context)
 
+
 def champions(request):
     context = {}
     champions = Champion.objects.all().order_by("name")
@@ -33,6 +34,7 @@ def champions(request):
     context["images"] = images
     context["champions"] = champions
     return render(request, 'champions.html', context)
+
 
 def champion_detail(request, champion_name):
     context = {}
@@ -79,6 +81,7 @@ def champion_detail(request, champion_name):
     context["partytype"] = partytype
     context["skin_count"] = skin_count
     return render(request, 'champion_detail.html', context)
+
 
 def items(request):
     context = {}
@@ -199,6 +202,7 @@ def items(request):
     context["item_to_name"] = item_to_name
     return render(request, 'items.html', context)
 
+
 def item_detail(request, item_id):
     context = {}
     context["tags"] = []
@@ -232,6 +236,20 @@ def item_detail(request, item_id):
     context["item"] = item
     return render(request, 'item_detail.html', context)
 
+
+def spells(request):
+    context = {}
+    spells = Spell.objects.all()
+    version = Version.objects.all().order_by("id").last().version
+    images_url = "https://ddragon.leagueoflegends.com/cdn/" + version + "/img/spell/"
+    images = {}
+    for spell in spells:
+        images[spell.name] = images_url + spell.image
+    context["images"] = images
+    context["spells"] = spells
+    return render(request, 'spells.html', context)
+
+
 def lp(request):
     context = {}
     lp_history_supermanman_solo = LPHistory.objects.filter(Q(queueType="RANKED_SOLO_5x5")
@@ -245,6 +263,7 @@ def lp(request):
     context["lp_history_supermanman_flex"] = lp_history_supermanman_flex
     context["lp_history_biaoge_flex"] = lp_history_biaoge_flex
     return render(request, 'lp_history.html', context)
+
 
 def updates(request):
     context = {}
